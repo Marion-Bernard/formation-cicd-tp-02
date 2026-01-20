@@ -28,13 +28,13 @@ class OrderTest {
         void should_reject_null_or_blank_id() {
             IllegalArgumentException ex1 = assertThrows(
                     IllegalArgumentException.class,
-                    () -> OrderValidator.validate(new Order(null, 1, 10.0, false))
+                    () -> OrderValidator.validate(Order.create(null, 1, 10.0, false))
             );
             assertEquals("id must not be blank", ex1.getMessage());
 
             IllegalArgumentException ex2 = assertThrows(
                     IllegalArgumentException.class,
-                    () -> OrderValidator.validate(new Order("   ", 1, 10.0, false))
+                    () -> OrderValidator.validate(Order.create("   ", 1, 10.0, false))
             );
             assertEquals("id must not be blank", ex2.getMessage());
         }
@@ -43,7 +43,7 @@ class OrderTest {
         void should_reject_invalid_quantity() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> OrderValidator.validate(new Order("A123", 0, 10.0, false))
+                    () -> OrderValidator.validate(Order.create("A123", 0, 10.0, false))
             );
             assertEquals("quantity must be > 0", ex.getMessage());
         }
@@ -52,14 +52,14 @@ class OrderTest {
         void should_reject_invalid_unitPrice() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> OrderValidator.validate(new Order("A123", 1, 0.0, false))
+                    () -> OrderValidator.validate(Order.create("A123", 1, 0.0, false))
             );
             assertEquals("unitPrice must be > 0", ex.getMessage());
         }
 
         @Test
         void should_accept_valid_order() {
-            Order order = new Order("A123", 5, 10.0, true);
+            Order order = Order.create("A123", 5, 10.0, true);
             assertDoesNotThrow(() -> OrderValidator.validate(order));
         }
     }
