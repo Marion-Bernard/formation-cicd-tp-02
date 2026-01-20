@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "**" ]    # toutes les branches
+  pull_request:
+    main
 
 jobs:
   unit-tests:
@@ -9,10 +13,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
       - name: Run unit tests
-        run: mvn test -Dtest=PricingServiceTest,passwordPolicyTest
+        run: mvn test -Dtest=PricingServiceTest,passwordPolicyTest,userTesT,userServiceTest
 
   quality:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
       - name: Quality checks (Checkstyle + SpotBugs)
         run: mvn verify -DskipTests
