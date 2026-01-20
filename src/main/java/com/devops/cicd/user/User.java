@@ -8,27 +8,23 @@ public class User {
     private final String password;
     private final Role role;
 
-    public User(String email, String password, Role role) {
+    private User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
 
-        // Validation email
-        if (email == null || email.trim().isEmpty() || !isValidEmail(email)) {
+    public static User create(String email, String password, Role role) {
+        if (email == null || email.trim().isEmpty() || !email.contains("@") || !email.substring(email.indexOf("@")).contains(".")) {
             throw new IllegalArgumentException("email must be valid");
         }
-        // Validation password
-        if (password == null || password.trim().isEmpty() || !PasswordPolicy.isStrong(password)) {
+        if (password == null || !PasswordPolicy.isStrong(password)) {
             throw new IllegalArgumentException("password must be strong");
         }
-        //Validation Role
         if (role == null) {
             throw new IllegalArgumentException("role must not be null");
         }
-
-        email = email.trim();
-
-
+        return new User(email.trim(), password, role);
     }
 
     public String getEmail() {

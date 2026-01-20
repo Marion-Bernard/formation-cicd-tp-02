@@ -11,6 +11,6 @@ public class UserService {
      * - propage les erreurs si les données sont invalides
      */
     public User register(String email, String password, Role role) {
-        return new User(email, password, role);
+        return User.create(email, password, role);
     }
 }

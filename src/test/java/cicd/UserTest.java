@@ -18,7 +18,7 @@ class UserTest {
         void should_reject_null_email() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User(null, "Strong1!", Role.USER)
+                    () -> User.create(null, "Strong1!", Role.USER)
             );
 
             assertEquals("email must be valid", ex.getMessage());
@@ -28,7 +28,7 @@ class UserTest {
         void should_reject_blank_email() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User("   ", "Strong1!", Role.USER)
+                    () -> User.create("   ", "Strong1!", Role.USER)
             );
 
             assertEquals("email must be valid", ex.getMessage());
@@ -47,7 +47,7 @@ class UserTest {
             for (String email : invalidEmails) {
                 IllegalArgumentException ex = assertThrows(
                         IllegalArgumentException.class,
-                        () -> new User(email, "Strong1!", Role.USER)
+                        () -> User.create(email, "Strong1!", Role.USER)
                 );
 
                 assertEquals("email must be valid", ex.getMessage());
@@ -56,7 +56,7 @@ class UserTest {
 
         @Test
         void should_accept_valid_email_and_trim_it() {
-            User user = new User("  alice@test.com  ", "Strong1!", Role.USER);
+            User user = User.create("  alice@test.com  ", "Strong1!", Role.USER);
 
             assertEquals("alice@test.com", user.getEmail());
         }
@@ -70,7 +70,7 @@ class UserTest {
         void should_reject_null_password() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User("alice@test.com", null, Role.USER)
+                    () -> User.create("alice@test.com", null, Role.USER)
             );
 
             assertEquals("password must be strong", ex.getMessage());
@@ -80,7 +80,7 @@ class UserTest {
         void should_reject_blank_password() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User("alice@test.com", "   ", Role.USER)
+                    () -> User.create("alice@test.com", "   ", Role.USER)
             );
 
             assertEquals("password must be strong", ex.getMessage());
@@ -90,7 +90,7 @@ class UserTest {
         void should_reject_weak_password() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User("alice@test.com", "password", Role.USER)
+                    () -> User.create("alice@test.com", "password", Role.USER)
             );
 
             assertEquals("password must be strong", ex.getMessage());
@@ -100,7 +100,7 @@ class UserTest {
         void should_accept_strong_password_without_modification() {
             String password = "Strong1!";
 
-            User user = new User("alice@test.com", password, Role.USER);
+            User user = User.create("alice@test.com", password, Role.USER);
 
             assertEquals(password, user.getPassword());
         }
@@ -114,7 +114,7 @@ class UserTest {
         void should_reject_null_role() {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> new User("alice@test.com", "Strong1!", null)
+                    () -> User.create("alice@test.com", "Strong1!", null)
             );
 
             assertEquals("role must not be null", ex.getMessage());
@@ -127,14 +127,14 @@ class UserTest {
 
         @Test
         void admin_should_access_admin_area() {
-            User admin = new User("admin@test.com", "Strong1!", Role.ADMIN);
+            User admin = User.create("admin@test.com", "Strong1!", Role.ADMIN);
 
             assertTrue(admin.canAccessAdminArea(), "Role ADMIN should access admin area");
         }
 
         @Test
         void user_should_not_access_admin_area() {
-            User user = new User("user@test.com", "Strong1!", Role.USER);
+            User user = User.create("user@test.com", "Strong1!", Role.USER);
 
             assertFalse(user.canAccessAdminArea(), "Role USER should not access admin area");
         }
