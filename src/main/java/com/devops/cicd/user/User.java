@@ -15,7 +15,7 @@ public class User {
     }
 
     public static User create(String email, String password, Role role) {
-        if (email == null || email.trim().isEmpty() || !email.contains("@") || !email.substring(email.indexOf("@")).contains(".")) {
+        if (email == null || isValidEmail(email)) {
             throw new IllegalArgumentException("email must be valid");
         }
         if (password == null || !PasswordPolicy.isStrong(password)) {
@@ -44,7 +44,7 @@ public class User {
     }
 
     // Méthode utilitaire pour valider l’email
-    private boolean isValidEmail(String email) {
+    private static boolean isValidEmail(String email) {
         String trimmed = email.trim();
         int atIndex = trimmed.indexOf("@");
         return atIndex > 0 &&
