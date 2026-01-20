@@ -13,18 +13,17 @@ public class User {
         if (email == null || email.trim().isEmpty() || !isValidEmail(email)) {
             throw new IllegalArgumentException("email must be valid");
         }
-        this.email = email.trim();
-
         // Validation password
         if (password == null || password.trim().isEmpty() || !PasswordPolicy.isStrong(password)) {
             throw new IllegalArgumentException("password must be strong");
         }
-        this.password = password;
-
         //Validation Role
         if (role == null) {
             throw new IllegalArgumentException("role must not be null");
         }
+
+        this.email = email.trim();
+        this.password = password;
         this.role = role;
     }
 
