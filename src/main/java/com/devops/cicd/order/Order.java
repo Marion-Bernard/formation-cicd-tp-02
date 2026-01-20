@@ -1,5 +1,8 @@
 package com.devops.cicd.order;
 
+import com.devops.cicd.user.Role;
+import com.devops.cicd.user.User;
+
 /**
  * Représente une commande client.
  *
@@ -20,7 +23,14 @@ public class Order {
     private final double unitPrice;
     private final boolean priority;
 
-    public Order(String id, int quantity, double unitPrice, boolean priority) {
+    private Order(String id, int quantity, double unitPrice, boolean priority) {
+        this.id = id;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.priority = priority;
+    }
+
+    public static Order create(String id, int quantity, double unitPrice, boolean priority) {
         if (id == null || id.isBlank()) {
             throw new IllegalArgumentException("id must not be blank");
         }
@@ -31,10 +41,8 @@ public class Order {
         if (unitPrice <= 0 ) {
             throw new IllegalArgumentException("unitPrice must be > 0");
         }
-        this.id = id;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.priority = priority;
+
+        return new Order(id, quantity,unitPrice, priority);
     }
 
     public String getId() {

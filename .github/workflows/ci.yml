@@ -16,7 +16,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Run unit tests
-        run: mvn test -Dtest=PricingServiceTest,passwordPolicyTest,userTest,userServiceTest
+        run: mvn test -Dtest=PricingServiceTest,PasswordPolicyTest,UserTest,UserServiceTest,OrderTest,OrderServiceTest
 
   quality:
     runs-on: ubuntu-latest
