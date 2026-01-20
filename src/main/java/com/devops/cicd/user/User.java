@@ -9,6 +9,10 @@ public class User {
     private final Role role;
 
     public User(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+
         // Validation email
         if (email == null || email.trim().isEmpty() || !isValidEmail(email)) {
             throw new IllegalArgumentException("email must be valid");
@@ -22,9 +26,9 @@ public class User {
             throw new IllegalArgumentException("role must not be null");
         }
 
-        this.email = email.trim();
-        this.password = password;
-        this.role = role;
+        email = email.trim();
+
+
     }
 
     public String getEmail() {
