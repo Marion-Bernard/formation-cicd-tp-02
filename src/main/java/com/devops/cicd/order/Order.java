@@ -1,8 +1,5 @@
 package com.devops.cicd.order;
 
-import com.devops.cicd.user.Role;
-import com.devops.cicd.user.User;
-
 /**
  * Représente une commande client.
  *
