@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "**" ]    # toutes les branches
+  pull_request:
+    branches: ["main"]
 
 jobs:
   unit-tests:
@@ -12,7 +16,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Run unit tests
-        run: mvn test -Dtest=PricingServiceTest,passwordPolicyTest
+        run: mvn test -Dtest=PricingServiceTest,PasswordPolicyTest,UserTest,UserServiceTest,OrderTest,OrderServiceTest
 
   quality:
     runs-on: ubuntu-latest
