@@ -15,10 +15,10 @@ public class User {
     }
 
     public static User create(String email, String password, Role role) {
-        if (email == null || isValidEmail(email)) {
+        if (email == null || !isValidEmail(email)) {
             throw new IllegalArgumentException("email must be valid");
         }
-        if (password == null || !PasswordPolicy.isStrong(password)) {
+        if ( !PasswordPolicy.isStrong(password)) {
             throw new IllegalArgumentException("password must be strong");
         }
         if (role == null) {
